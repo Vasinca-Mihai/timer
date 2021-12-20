@@ -20,6 +20,7 @@ public class Main {
         sound_start = TinySound.loadSound(new File("./src/Resources/Sounds/start2.wav"));
         sound_stop = TinySound.loadSound(new File("./src/Resources/Sounds/stop2.wav"));
         sound_beep = TinySound.loadSound(new File("./src/Resources/Sounds/beep.wav"));
+
         goTroughExercises(set);
 
         sleep(1000);
