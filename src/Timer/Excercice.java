@@ -2,8 +2,6 @@ package Timer;
 
 import ext_lib.tinysound.Sound;
 
-import java.io.File;
-
 public class Excercice {
     private int exeTime;
     private int restTime;
