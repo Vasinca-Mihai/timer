@@ -3,7 +3,7 @@ package Timer;
 import ext_lib.tinysound.Sound;
 
 public class Excercice {
-    private int exeTime;
+    private int exeWork;
     private int restTime;
     private String exName;
     private String exDesc;
@@ -11,15 +11,15 @@ public class Excercice {
     private boolean inTime;
 
     public Excercice(boolean inTime, int exeTime, int restTime, String exName, String exDesc) {
-        this.exeTime = exeTime;
+        this.exeWork = exeTime;
         this.restTime = restTime;
         this.exName = exName;
         this.exDesc = exDesc;
         this.inTime = inTime;
     }
 
-    public int getExeTime() {
-        return exeTime;
+    public int getExeWork() {
+        return exeWork;
     }
 
     public int getRestTime() {

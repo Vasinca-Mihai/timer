@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Set {
     private static List<Excercice> ex = new ArrayList<Excercice>(Arrays.asList(
-            (new Excercice(true,45,15,"Butt kicks","pe loc duci un picior la fund apoi pe celalat")),
+            (new Excercice(false,45,15,"Butt kicks","pe loc duci un picior la fund apoi pe celalat")),
             (new Excercice(true,45,15,"Burpees","Americane")),
             (new Excercice(true,45,15,"Jumping jacks","fluturasi")),
             (new Excercice(true,45,15,"Switching lunges","fandare pe stanga apoi dreapta")),

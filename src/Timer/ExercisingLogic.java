@@ -12,9 +12,11 @@ public class ExercisingLogic {
     private static Sound sound_stop;
     private static Sound sound_beep;
     private static double volume = 1;
+    //private static InterfaceManager interfaceManager;
 
     public static void startExercising(){
         List<Excercice> set = Set.getSet();
+        //interfaceManager = InterfaceManager.getInstance();
         TinySound.init();
         SoundLoader.setSet(set);
         sound_start = TinySound.loadSound(new File("./src/Resources/Sounds/start2.wav"));
@@ -28,7 +30,8 @@ public class ExercisingLogic {
     }
     public static void interruptedSleepSeconds(int seconds){
         for(int i=seconds;i>0;i--){
-            System.out.println("seconds remaining: "+i);
+            InterfaceManager.updateTextFiled(TextFiledName.M2_Counter,i+" s");
+            //System.out.println("seconds remaining: "+i);
             if(i <6) {
                 sound_beep.play(volume);
             }
@@ -46,15 +49,19 @@ public class ExercisingLogic {
         for(int i=0; i< 2 /*ex.size()*/;i++){
             sleep(2000);
             ex.get(i).getSoundFile().play(volume);
-            System.out.println("\tNext exercise: "+ex.get(i).getExName());
-            System.out.println("\t"+ex.get(i).getExDesc());
+            //System.out.println("\tNext exercise: "+ex.get(i).getExName());
+            //System.out.println("\t"+ex.get(i).getExDesc());
+            InterfaceManager.updateTextFiled(TextFiledName.M2_ExTitle,ex.get(i).getExName());
+            InterfaceManager.updateTextFiled(TextFiledName.M2_ExDescription,ex.get(i).getExDesc());
+
             interruptedSleepSeconds(ex.get(i).getRestTime() - 2);
             sound_start.play(volume);
             if(ex.get(i).isInTime()) {
-                interruptedSleepSeconds(ex.get(i).getExeTime());
+                interruptedSleepSeconds(ex.get(i).getExeWork());
             }else {
+                InterfaceManager.updateTextFiled(TextFiledName.M2_Counter,"Reps: "+ex.get(i).getExeWork());
                 System.out.println("Please press enter once done");
-                s.nextLine();
+                //s.nextLine();
             }
             sound_stop.play(volume);
         }
@@ -63,3 +70,5 @@ public class ExercisingLogic {
         volume = v;
     }
 }
+//in action listener add a nextEx method and if the ex is automated call it after wqait
+//next ex repalces go trough ex and is recurring (sefl call)
