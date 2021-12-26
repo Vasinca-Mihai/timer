@@ -45,4 +45,8 @@ public class Excercice {
     public void setSoundFile(Sound soundFile) {
         this.soundFile = soundFile;
     }
+
+    public String toString(){
+        return "in time: "+inTime+", ex name: "+exName+", ex time:" +exeWork+", ex rest: "+restTime+"\n"+exDesc;
+    }
 }
