@@ -3,13 +3,8 @@ package Timer;
 import ext_lib.tinysound.Sound;
 import ext_lib.tinysound.TinySound;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.File;
 import java.util.List;
-import java.util.Scanner;
 
 public class ExercisingLogic {
     private static Sound sound_start;
@@ -21,6 +16,7 @@ public class ExercisingLogic {
     private static List<Excercice> set;
 
     public static void startExercising(){
+        Set.readSet(InterfaceManager.getFilePath());
         set = Set.getSet();
         //interfaceManager = InterfaceManager.getInstance();
         TinySound.init();
@@ -29,13 +25,17 @@ public class ExercisingLogic {
         sound_stop = TinySound.loadSound(new File("./src/Resources/Sounds/stop2.wav"));
         sound_beep = TinySound.loadSound(new File("./src/Resources/Sounds/beep.wav"));
 
-
-        goTroughExercises();
-
+        for(int i=InterfaceManager.getNumberOfSets();i>0;i--){
+            InterfaceManager.updateTextFiled(TextFiledName.EXMENU_ExDescription,"");
+            InterfaceManager.updateTextFiled(TextFiledName.EXMENU_ExTitle,"Rest");
+            interruptedSleepSeconds(InterfaceManager.getTimeBetweenSets());
+            goTroughExercises();
+        }
+        terminateProgram();
     }
     public static void interruptedSleepSeconds(int seconds){
         for(int i=seconds;i>0;i--){
-            InterfaceManager.updateTextFiled(TextFiledName.M2_Counter,i+" s");
+            InterfaceManager.updateTextFiled(TextFiledName.EXMENU_Counter,i+" s");
             //System.out.println("seconds remaining: "+i);
             if(i <6) {
                 sound_beep.play(volume);
@@ -56,8 +56,8 @@ public class ExercisingLogic {
             set.get(exerciseNr).getSoundFile().play(volume);
             //System.out.println("\tNext exercise: "+ex.get(i).getExName());
             //System.out.println("\t"+ex.get(i).getExDesc());
-            InterfaceManager.updateTextFiled(TextFiledName.M2_ExTitle,set.get(exerciseNr).getExName());
-            InterfaceManager.updateTextFiled(TextFiledName.M2_ExDescription,set.get(exerciseNr).getExDesc());
+            InterfaceManager.updateTextFiled(TextFiledName.EXMENU_ExTitle,set.get(exerciseNr).getExName());
+            InterfaceManager.updateTextFiled(TextFiledName.EXMENU_ExDescription,set.get(exerciseNr).getExDesc());
 
             interruptedSleepSeconds(set.get(exerciseNr).getRestTime() - 2);
             sound_start.play(volume);
@@ -69,11 +69,11 @@ public class ExercisingLogic {
                     goTroughExercises();
                 }
                 if(exerciseNr>=set.size()){
-                    terminateProgram();
+                    //terminateProgram();
                 }
             }else {
                 InterfaceManager.EnableDisableDoneButton(true);
-                InterfaceManager.updateTextFiled(TextFiledName.M2_Counter,"Reps: "+set.get(exerciseNr).getExeWork());
+                InterfaceManager.updateTextFiled(TextFiledName.EXMENU_Counter,"Reps: "+set.get(exerciseNr).getExeWork());
                 //System.out.println("Please press enter once done");
                 //localCheck = true;
                 //while (localCheck){

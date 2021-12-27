@@ -58,17 +58,10 @@ public class Set {
 
 
         //reading logic
-        System.out.println(set.get(0));
-        System.out.println(set.get(1));
-        System.out.println(set.get(2));
-        //ex = set;
+        //System.out.println(set.get(0));
+        //System.out.println(set.get(1));
+        //System.out.println(set.get(2));
+        ex = set;
 
     }
-    public String toString(){
-        String out = new String();
-        for (int i=0;i<ex.size();i++){
-            out+=ex.get(i).toString();
-        }
-        return out;
-    }
-        }
+}
