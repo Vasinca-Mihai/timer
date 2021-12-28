@@ -12,6 +12,10 @@ import java.util.List;
 
 public class InterfaceManager implements ActionListener {
 
+    private static final int defaultNrOfSets = 1;
+    private static final int defaultRestTimeSets = 120;
+    private static final String defaultFile = "default";
+
     private static JFrame window;
     private static JButton mmStart;
     private static JButton mmValidate;
@@ -65,13 +69,44 @@ public class InterfaceManager implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        mmStart.setEnabled(false);
+        String errorMessage = "detected problems:\n";
         if(e.getSource() == mmValidate){
+            if(!new File("./src/UserData/"+ mmFileInputTF.getText()+".txt").isFile()){
+                errorMessage += "\tInputted file was not found.\n";
+            }
+            if(!(new File("./src/UserData/"+ defaultFile +".txt").isFile()) && mmFileInputTF.getText().isEmpty()){
+                errorMessage += "\tThe default file was not found (default file is named: \""+defaultFile+"\").\n";
+            }
+            if(!mmNrOfSetsTF.getText().isEmpty()){
+                if(Integer.parseInt(mmNrOfSetsTF.getText())<=0){
+                    errorMessage += "\tThe number of sets inputted is invalid (smaller than one).\n";
+                }
+            }
+            if(!mmTimeBetweenSetsTF.getText().isEmpty()){
+                if(Integer.parseInt(mmTimeBetweenSetsTF.getText())<=0) {
+                    errorMessage += "\tThe rest time between sets is invalid (smaller than one).\n";
+                }
+            }
+            //System.out.println(errorMessage);
+            if(errorMessage.equals("detected problems:\n")){
+                mmStart.setEnabled(true);
+            }else{
+                JOptionPane.showMessageDialog(new JFrame(),errorMessage,"Some error occurred.",JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+        /*if(e.getSource() == mmValidate){
             if(new File("./src/UserData/"+ mmFileInputTF.getText()+".txt").isFile()) {
                 mmStart.setEnabled(true);
             }else{
-                JOptionPane.showMessageDialog(new JFrame(),"No such file found.","404",JOptionPane.INFORMATION_MESSAGE);
+                if(!(new File("./src/UserData/"+ defaultFile +".txt").isFile())){
+                    JOptionPane.showMessageDialog(new JFrame(),"The default file is missing!","404",JOptionPane.INFORMATION_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(new JFrame(),"No such file found.\n If left blank it will default to: \""+defaultFile+"\"","404",JOptionPane.INFORMATION_MESSAGE);
+                    mmStart.setEnabled(true);
+                }
             }
-        }else if(e.getSource() == mmStart) {
+        }*/else if(e.getSource() == mmStart) {
             switchMenu(2);
             ExercisingLogic.startExercising();
         }else if(e.getSource() == exDone){
@@ -84,10 +119,12 @@ public class InterfaceManager implements ActionListener {
         mmFileInput = new JLabel("Input the name of the file to be loaded: ");
         mmFileInput.setSize(400,60);
         mmFileInput.setLocation(10,10);
+        mmFileInput.setToolTipText("if left blank it will default to\""+defaultFile+"\"");
         mmFileInput.setFont(new Font(Font.SERIF,Font.PLAIN,20));
         mmFileInput.setHorizontalAlignment(JLabel.RIGHT);
 
         mmNrOfSets = new JLabel("Input the nr of sets you want to do: ");
+        mmNrOfSets.setToolTipText("if left blank / is invalid it will default to: "+defaultNrOfSets);
         mmNrOfSets.setFont(mmFileInput.getFont());
         mmNrOfSets.setSize(mmFileInput.getSize());
         mmNrOfSets.setHorizontalAlignment(JLabel.RIGHT);
@@ -103,8 +140,8 @@ public class InterfaceManager implements ActionListener {
         mmNrOfSetsTF.setLocation(410,10 + 60 + 10);
         mmNrOfSetsTF.setSize(200,60);
 
-        mmTimeBetweenSets = new JLabel("Input the rest time before each set (s):");
-        //m1TimeBetweenSets.setToolTipText("This field is meant to be used in case something interrupted your workout (default: 0)");
+        mmTimeBetweenSets = new JLabel("Input the rest time before each set (seconds):");
+        mmTimeBetweenSets.setToolTipText("if left blank / is invalid it will default to: "+defaultRestTimeSets+" seconds");
         mmTimeBetweenSets.setFont(mmFileInput.getFont());
         mmTimeBetweenSets.setSize(mmFileInput.getSize());
         mmTimeBetweenSets.setHorizontalAlignment(JLabel.RIGHT);
@@ -203,14 +240,22 @@ public class InterfaceManager implements ActionListener {
     }
 
     public static String getFilePath(){
-        return "./src/UserData/"+ mmFileInputTF.getText()+".txt";
+        if(!mmFileInputTF.getText().isEmpty())
+            return "./src/UserData/"+ mmFileInputTF.getText()+".txt";
+        return "./src/UserData/"+defaultFile+".txt";
     }
 
     public static int getTimeBetweenSets(){
-        return Integer.getInteger(mmTimeBetweenSetsTF.getText());
+        if(!mmTimeBetweenSetsTF.getText().isEmpty()){
+            return Integer.getInteger(mmTimeBetweenSetsTF.getText());
+        }
+        return defaultRestTimeSets;
     }
 
     public static int getNumberOfSets(){
-        return Integer.getInteger(mmNrOfSetsTF.getText());
+        if(!mmNrOfSetsTF.getText().isEmpty()){
+            return Integer.getInteger(mmNrOfSetsTF.getText());
+        }
+        return defaultNrOfSets;
     }
 }
