@@ -72,20 +72,21 @@ public class InterfaceManager implements ActionListener {
         mmStart.setEnabled(false);
         String errorMessage = "detected problems:\n";
         if(e.getSource() == mmValidate){
-            if(!new File("./src/UserData/"+ mmFileInputTF.getText()+".txt").isFile()){
-                errorMessage += "\tInputted file was not found.\n";
+            if(!new File("./src/UserData/"+ mmFileInputTF.getText()+".txt").isFile()
+            && !mmFileInputTF.getText().isEmpty()){
+                errorMessage += "     Inputted file was not found.\n";
             }
             if(!(new File("./src/UserData/"+ defaultFile +".txt").isFile()) && mmFileInputTF.getText().isEmpty()){
-                errorMessage += "\tThe default file was not found (default file is named: \""+defaultFile+"\").\n";
+                errorMessage += "     The default file was not found (default file is named: \""+defaultFile+"\").\n";
             }
             if(!mmNrOfSetsTF.getText().isEmpty()){
                 if(Integer.parseInt(mmNrOfSetsTF.getText())<=0){
-                    errorMessage += "\tThe number of sets inputted is invalid (smaller than one).\n";
+                    errorMessage += "     The number of sets inputted is invalid (smaller than one).\n";
                 }
             }
             if(!mmTimeBetweenSetsTF.getText().isEmpty()){
                 if(Integer.parseInt(mmTimeBetweenSetsTF.getText())<=0) {
-                    errorMessage += "\tThe rest time between sets is invalid (smaller than one).\n";
+                    errorMessage += "     The rest time between sets is invalid (smaller than one).\n";
                 }
             }
             //System.out.println(errorMessage);
@@ -233,6 +234,7 @@ public class InterfaceManager implements ActionListener {
             case EXMENU_ExDescription: exExDescription.setText(updateTo);break;
         }
         window.update(window.getGraphics());
+        //window.repaint();
     }
 
     public static void EnableDisableDoneButton(boolean bool){
@@ -247,7 +249,7 @@ public class InterfaceManager implements ActionListener {
 
     public static int getTimeBetweenSets(){
         if(!mmTimeBetweenSetsTF.getText().isEmpty()){
-            return Integer.getInteger(mmTimeBetweenSetsTF.getText());
+            return Integer.parseInt(mmTimeBetweenSetsTF.getText());
         }
         return defaultRestTimeSets;
     }
