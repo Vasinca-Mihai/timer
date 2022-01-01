@@ -49,7 +49,8 @@ public class InterfaceManager implements ActionListener {
     //}
 
     public InterfaceManager(){
-        window = new JFrame();
+        window = new JFrame("Train time");
+        //window.setIconImage(new ImageIcon("./src/Resources/images/main_icon.png").getImage());
         //window.addKeyListener(KL);
         window.setSize(640,500);
         window.setLocationRelativeTo(null);

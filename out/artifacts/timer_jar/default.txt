@@ -1,4 +1,4 @@
-true:45:15:Butt kicks:pe loc duci un picior la fund apoi pe celalat:
+false:45:15:Butt kicks:pe loc duci un picior la fund apoi pe celalat:
 true:45:15:Burpees:faci o flotare apoi sari cu genunchii la piept:
 true:45:15:Jumping jacks:fluturasi:
 true:45:15:Switching lunges:fandare pe stanga apoi dreapta:

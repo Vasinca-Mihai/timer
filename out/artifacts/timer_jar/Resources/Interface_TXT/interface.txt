@@ -1,0 +1,131 @@
+import javax.swing.JPanel;
+import javax.swing.BorderFactory;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+
+class MainPannel extends JPanel implements ActionListener
+{
+   JLabel lbFileInputLabel;
+   JTextField tfInputFieldFile;
+   JLabel lbNrSetLabel;
+   JTextField tfNrSetsInput;
+   JButton btStartButton;
+   JLabel lbLabel3startAtLabel;
+   JTextField tfStartExerciceNr;
+
+   /**
+    *Constructor for the MainPannel object
+    */
+   public MainPannel()
+   {
+      super();
+
+      GridBagLayout gbMainPannel = new GridBagLayout();
+      GridBagConstraints gbcMainPannel = new GridBagConstraints();
+      setLayout( gbMainPannel );
+
+      lbFileInputLabel = new JLabel( "Input file to be loaded:"  );
+      gbcMainPannel.gridx = 2;
+      gbcMainPannel.gridy = 3;
+      gbcMainPannel.gridwidth = 10;
+      gbcMainPannel.gridheight = 2;
+      gbcMainPannel.fill = GridBagConstraints.BOTH;
+      gbcMainPannel.weightx = 0;
+      gbcMainPannel.weighty = 0;
+      gbcMainPannel.anchor = GridBagConstraints.NORTHWEST;
+      gbcMainPannel.insets = new Insets( 6,0,0,0 );
+      gbMainPannel.setConstraints( lbFileInputLabel, gbcMainPannel );
+      add( lbFileInputLabel );
+
+      tfInputFieldFile = new JTextField( );
+      gbcMainPannel.gridx = 12;
+      gbcMainPannel.gridy = 3;
+      gbcMainPannel.gridwidth = 7;
+      gbcMainPannel.gridheight = 2;
+      gbcMainPannel.fill = GridBagConstraints.BOTH;
+      gbcMainPannel.weightx = 0;
+      gbcMainPannel.weighty = 0;
+      gbcMainPannel.anchor = GridBagConstraints.NORTH;
+      gbMainPannel.setConstraints( tfInputFieldFile, gbcMainPannel );
+      add( tfInputFieldFile );
+
+      lbNrSetLabel = new JLabel( "Input the number of sets:"  );
+      gbcMainPannel.gridx = 2;
+      gbcMainPannel.gridy = 5;
+      gbcMainPannel.gridwidth = 10;
+      gbcMainPannel.gridheight = 2;
+      gbcMainPannel.fill = GridBagConstraints.BOTH;
+      gbcMainPannel.weightx = 0;
+      gbcMainPannel.weighty = 0;
+      gbcMainPannel.anchor = GridBagConstraints.NORTHWEST;
+      gbMainPannel.setConstraints( lbNrSetLabel, gbcMainPannel );
+      add( lbNrSetLabel );
+
+      tfNrSetsInput = new JTextField( );
+      gbcMainPannel.gridx = 12;
+      gbcMainPannel.gridy = 5;
+      gbcMainPannel.gridwidth = 7;
+      gbcMainPannel.gridheight = 2;
+      gbcMainPannel.fill = GridBagConstraints.BOTH;
+      gbcMainPannel.weightx = 0;
+      gbcMainPannel.weighty = 0;
+      gbcMainPannel.anchor = GridBagConstraints.NORTH;
+      gbMainPannel.setConstraints( tfNrSetsInput, gbcMainPannel );
+      add( tfNrSetsInput );
+
+      btStartButton = new JButton( "Start"  );
+      btStartButton.addActionListener( this );
+      gbcMainPannel.gridx = 8;
+      gbcMainPannel.gridy = 9;
+      gbcMainPannel.gridwidth = 5;
+      gbcMainPannel.gridheight = 1;
+      gbcMainPannel.fill = GridBagConstraints.NONE;
+      gbcMainPannel.weightx = 0;
+      gbcMainPannel.weighty = 0;
+      gbcMainPannel.anchor = GridBagConstraints.CENTER;
+      gbMainPannel.setConstraints( btStartButton, gbcMainPannel );
+      add( btStartButton );
+
+      lbLabel3startAtLabel = new JLabel( "Start at exercice number (default 0):"  );
+      gbcMainPannel.gridx = 2;
+      gbcMainPannel.gridy = 7;
+      gbcMainPannel.gridwidth = 10;
+      gbcMainPannel.gridheight = 2;
+      gbcMainPannel.fill = GridBagConstraints.BOTH;
+      gbcMainPannel.weightx = 0;
+      gbcMainPannel.weighty = 0;
+      gbcMainPannel.anchor = GridBagConstraints.NORTHWEST;
+      gbMainPannel.setConstraints( lbLabel3startAtLabel, gbcMainPannel );
+      add( lbLabel3startAtLabel );
+
+      tfStartExerciceNr = new JTextField( );
+      gbcMainPannel.gridx = 12;
+      gbcMainPannel.gridy = 7;
+      gbcMainPannel.gridwidth = 7;
+      gbcMainPannel.gridheight = 2;
+      gbcMainPannel.fill = GridBagConstraints.BOTH;
+      gbcMainPannel.weightx = 0;
+      gbcMainPannel.weighty = 0;
+      gbcMainPannel.anchor = GridBagConstraints.NORTH;
+      gbMainPannel.setConstraints( tfStartExerciceNr, gbcMainPannel );
+      add( tfStartExerciceNr );
+   }
+
+   public void actionPerformed( ActionEvent e )
+   {
+      if ( e.getSource() == btStartButton )
+      {
+      // Action for btStartButton
+      }
+   }
+}
+
+MainPannel pnMainPannel;
+
+pnMainPannel = new MainPannel();
