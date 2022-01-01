@@ -50,6 +50,7 @@ public class InterfaceManager implements ActionListener {
 
     public InterfaceManager(){
         window = new JFrame("Train time");
+        //dir referance
         //window.setIconImage(new ImageIcon("./src/Resources/images/main_icon.png").getImage());
         //window.addKeyListener(KL);
         window.setSize(640,500);
@@ -57,7 +58,7 @@ public class InterfaceManager implements ActionListener {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setLayout(null);
         //window.setIconImage(new ImageIcon("./src/Resources/BigProfilePic.png").getImage());
-
+        //dir referance
         initiateM1();
         initiateM2();
         switchMenu(1);
@@ -73,6 +74,7 @@ public class InterfaceManager implements ActionListener {
         mmStart.setEnabled(false);
         String errorMessage = "detected problems:\n";
         if(e.getSource() == mmValidate){
+            // a lot of directory referance
             if(!new File("./src/UserData/"+ mmFileInputTF.getText()+".txt").isFile()
             && !mmFileInputTF.getText().isEmpty()){
                 errorMessage += "     Inputted file was not found.\n";
@@ -99,9 +101,11 @@ public class InterfaceManager implements ActionListener {
         }
         /*if(e.getSource() == mmValidate){
             if(new File("./src/UserData/"+ mmFileInputTF.getText()+".txt").isFile()) {
+                //dir referance
                 mmStart.setEnabled(true);
             }else{
                 if(!(new File("./src/UserData/"+ defaultFile +".txt").isFile())){
+                    //dir referance
                     JOptionPane.showMessageDialog(new JFrame(),"The default file is missing!","404",JOptionPane.INFORMATION_MESSAGE);
                 }else{
                     JOptionPane.showMessageDialog(new JFrame(),"No such file found.\n If left blank it will default to: \""+defaultFile+"\"","404",JOptionPane.INFORMATION_MESSAGE);
@@ -245,7 +249,9 @@ public class InterfaceManager implements ActionListener {
     public static String getFilePath(){
         if(!mmFileInputTF.getText().isEmpty())
             return "./src/UserData/"+ mmFileInputTF.getText()+".txt";
+        //dir referance
         return "./src/UserData/"+defaultFile+".txt";
+        //dir referance
     }
 
     public static int getTimeBetweenSets(){

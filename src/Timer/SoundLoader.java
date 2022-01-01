@@ -12,6 +12,7 @@ public class SoundLoader {
         for(int i=0;i< set.size();i++){
             set.get(i).setSoundFile(TinySound.loadSound(
                     new File("./src/Resources/Sounds/"+set.get(i).getExName()+".wav")));
+            //here are referenced sound data
         }
     }
 
