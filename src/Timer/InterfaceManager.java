@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class InterfaceManager implements ActionListener {
+    private static ExercisingLogic t;
 
     private static final int defaultNrOfSets = 1;
     private static final int defaultRestTimeSets = 120;
@@ -112,12 +113,21 @@ public class InterfaceManager implements ActionListener {
                     mmStart.setEnabled(true);
                 }
             }
-        }*/else if(e.getSource() == mmStart) {
-            switchMenu(2);
-            ExercisingLogic.startExercising();
-        }else if(e.getSource() == exDone){
-            ExercisingLogic.continueExLogic();
-            //System.out.println("here");
+        }*/
+        else if (e.getSource() == mmStart || e.getSource() == exDone) {
+            if(t==null){
+                t = new ExercisingLogic();
+            }
+            if(e.getSource() == mmStart) {
+                switchMenu(2);
+
+                //ExercisingLogic.startExercising();
+                t.start();
+            }else if(e.getSource() == exDone){
+                ExercisingLogic.continueExLogic();
+
+                //System.out.println("here");
+            }
         }
     }
 

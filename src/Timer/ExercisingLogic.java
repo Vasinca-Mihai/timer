@@ -6,7 +6,7 @@ import ext_lib.tinysound.TinySound;
 import java.io.File;
 import java.util.List;
 
-public class ExercisingLogic {
+public class ExercisingLogic extends Thread{
     private static Sound sound_start;
     private static Sound sound_stop;
     private static Sound sound_beep;
@@ -14,6 +14,11 @@ public class ExercisingLogic {
     private static boolean localCheck = true;
     private static int exerciseNr =0;
     private static List<Excercice> set;
+
+    @Override
+    public void run(){
+        startExercising();
+    }
 
     public static void startExercising(){
         Set.readSet(InterfaceManager.getFilePath());
