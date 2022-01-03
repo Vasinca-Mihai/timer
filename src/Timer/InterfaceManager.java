@@ -43,17 +43,9 @@ public class InterfaceManager implements ActionListener {
         new InterfaceManager();
     }
 
-    //public static InterfaceManager getInstance(){
-    //    if(instance == null){
-    //        return new InterfaceManager();
-    //    }else return instance;
-    //}
-
     public InterfaceManager(){
         window = new JFrame("Train time");
-        //dir referance
-        //window.setIconImage(new ImageIcon("./src/Resources/images/main_icon.png").getImage());
-        //window.addKeyListener(KL);
+        //window.setIconImage(new ImageIcon(UniversalVar.iconPath+"main_icon.png").getImage());
         window.setSize(640,500);
         window.setLocationRelativeTo(null);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -68,19 +60,16 @@ public class InterfaceManager implements ActionListener {
         window.setVisible(true);
     }
 
-
-
     @Override
     public void actionPerformed(ActionEvent e) {
         mmStart.setEnabled(false);
         String errorMessage = "detected problems:\n";
         if(e.getSource() == mmValidate){
-            // a lot of directory referance
-            if(!new File("./src/UserData/"+ mmFileInputTF.getText()+".txt").isFile()
+            if(!new File(UniversalVar.setFilePath+ mmFileInputTF.getText()+".txt").isFile()
             && !mmFileInputTF.getText().isEmpty()){
                 errorMessage += "     Inputted file was not found.\n";
             }
-            if(!(new File("./src/UserData/"+ defaultFile +".txt").isFile()) && mmFileInputTF.getText().isEmpty()){
+            if(!(new File(UniversalVar.setFilePath+ defaultFile +".txt").isFile()) && mmFileInputTF.getText().isEmpty()){
                 errorMessage += "     The default file was not found (default file is named: \""+defaultFile+"\").\n";
             }
             if(!mmNrOfSetsTF.getText().isEmpty()){
@@ -93,27 +82,12 @@ public class InterfaceManager implements ActionListener {
                     errorMessage += "     The rest time between sets is invalid (smaller than one).\n";
                 }
             }
-            //System.out.println(errorMessage);
             if(errorMessage.equals("detected problems:\n")){
                 mmStart.setEnabled(true);
             }else{
                 JOptionPane.showMessageDialog(new JFrame(),errorMessage,"Some error occurred.",JOptionPane.INFORMATION_MESSAGE);
             }
         }
-        /*if(e.getSource() == mmValidate){
-            if(new File("./src/UserData/"+ mmFileInputTF.getText()+".txt").isFile()) {
-                //dir referance
-                mmStart.setEnabled(true);
-            }else{
-                if(!(new File("./src/UserData/"+ defaultFile +".txt").isFile())){
-                    //dir referance
-                    JOptionPane.showMessageDialog(new JFrame(),"The default file is missing!","404",JOptionPane.INFORMATION_MESSAGE);
-                }else{
-                    JOptionPane.showMessageDialog(new JFrame(),"No such file found.\n If left blank it will default to: \""+defaultFile+"\"","404",JOptionPane.INFORMATION_MESSAGE);
-                    mmStart.setEnabled(true);
-                }
-            }
-        }*/
         else if (e.getSource() == mmStart || e.getSource() == exDone) {
             if(t==null){
                 t = new ExercisingLogic();
@@ -124,8 +98,8 @@ public class InterfaceManager implements ActionListener {
                 //ExercisingLogic.startExercising();
                 t.start();
             }else if(e.getSource() == exDone){
-                ExercisingLogic.continueExLogic();
-
+                //ExercisingLogic.continueExLogic();
+                UniversalVar.setDoneCheck(false);
                 //System.out.println("here");
             }
         }
@@ -258,10 +232,8 @@ public class InterfaceManager implements ActionListener {
 
     public static String getFilePath(){
         if(!mmFileInputTF.getText().isEmpty())
-            return "./src/UserData/"+ mmFileInputTF.getText()+".txt";
-        //dir referance
-        return "./src/UserData/"+defaultFile+".txt";
-        //dir referance
+            return UniversalVar.setFilePath+ mmFileInputTF.getText()+".txt";
+        return UniversalVar.setFilePath+defaultFile+".txt";
     }
 
     public static int getTimeBetweenSets(){

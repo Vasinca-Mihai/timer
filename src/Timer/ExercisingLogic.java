@@ -11,7 +11,6 @@ public class ExercisingLogic extends Thread{
     private static Sound sound_stop;
     private static Sound sound_beep;
     private static double volume = 1;
-    private static boolean localCheck = true;
     private static int exerciseNr =0;
     private static List<Excercice> set;
 
@@ -23,13 +22,11 @@ public class ExercisingLogic extends Thread{
     public static void startExercising(){
         Set.readSet(InterfaceManager.getFilePath());
         set = Set.getSet();
-        //interfaceManager = InterfaceManager.getInstance();
         TinySound.init();
         SoundLoader.setSet(set);
-        //dir referance
-        sound_start = TinySound.loadSound(new File("./src/Resources/Sounds/start2.wav"));
-        sound_stop = TinySound.loadSound(new File("./src/Resources/Sounds/stop2.wav"));
-        sound_beep = TinySound.loadSound(new File("./src/Resources/Sounds/beep.wav"));
+        sound_start = TinySound.loadSound(new File(UniversalVar.soundsFilepath+"start2.wav"));
+        sound_stop = TinySound.loadSound(new File(UniversalVar.soundsFilepath+"stop2.wav"));
+        sound_beep = TinySound.loadSound(new File(UniversalVar.soundsFilepath+"beep.wav"));
 
         for(int i=InterfaceManager.getNumberOfSets();i>0;i--){
             InterfaceManager.updateTextFiled(TextFiledName.EXMENU_ExDescription,"");
@@ -55,13 +52,10 @@ public class ExercisingLogic extends Thread{
             Thread.sleep(millis);
         }catch (InterruptedException e){e.printStackTrace();}
     }
+
     public static void goTroughExercises(){
-        //Scanner s = new Scanner(System.in);
-        //for(int i=0; i< 2 /*ex.size()*/;i++){
             sleep(2000);
             set.get(exerciseNr).getSoundFile().play(volume);
-            //System.out.println("\tNext exercise: "+ex.get(i).getExName());
-            //System.out.println("\t"+ex.get(i).getExDesc());
             InterfaceManager.updateTextFiled(TextFiledName.EXMENU_ExTitle,set.get(exerciseNr).getExName());
             InterfaceManager.updateTextFiled(TextFiledName.EXMENU_ExDescription,set.get(exerciseNr).getExDesc());
 
@@ -74,31 +68,28 @@ public class ExercisingLogic extends Thread{
                 if(exerciseNr<set.size()){
                     goTroughExercises();
                 }
-                if(exerciseNr>=set.size()){
+                //if(exerciseNr>=set.size()){
                     //terminateProgram();
-                }
+                //}
             }else {
                 InterfaceManager.EnableDisableDoneButton(true);
                 InterfaceManager.updateTextFiled(TextFiledName.EXMENU_Counter,"Reps: "+set.get(exerciseNr).getExeWork());
-                //System.out.println("Please press enter once done");
-                //localCheck = true;
-                //while (localCheck){
-                    //try {
-                    //    Thread.sleep(1000);
-                    //}catch (InterruptedException e){e.printStackTrace();}
+                while (UniversalVar.getDoneCheck()){
                     //System.out.println("here");
-                //}
-                //InterfaceManager.EnableDisableDoneButton(false);
-                //s.nextLine();
+                    sleep(500);
+                }
+                UniversalVar.setDoneCheck(true);
+                continueExLogic();
             }
 
-        //}
+
     }
 
     public static void terminateProgram(){
         sleep(1000);
         TinySound.shutdown();
     }
+
     public static void setVolume(double v){
         volume = v;
     }
@@ -116,4 +107,3 @@ public class ExercisingLogic extends Thread{
 
     }
 }
-//in action listener to change local check

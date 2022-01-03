@@ -1,0 +1,2 @@
+separate the graphics logic from the general logic
+figure out how to swap "ExercisingLogic.continueExLogic();" in action perfomred in interface amanger to make changes in t
